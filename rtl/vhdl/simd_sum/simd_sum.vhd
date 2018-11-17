@@ -22,7 +22,7 @@ entity simd_sum is
 		data_a_i : in std_logic_vector(WIDTH-1 downto 0);
 		data_b_i : in std_logic_vector(WIDTH-1 downto 0);
 		done_o   : out std_logic;
-		data_c_o : out std_logic_vector(WIDTH-1 downto 0)
+		data_c_o : out std_logic_vector(WIDTH downto 0)
     );
 end entity simd_sum;
 
@@ -34,9 +34,9 @@ architecture simd_sum_rtl of simd_sum is
   	signal state_next   : SIMB_SUM_ST_TYPE;
   	signal done_reg     : std_logic;
   	signal done_next    : std_logic;
-  	signal dataout_reg  : std_logic_vector(WIDTH-1 downto 0);
-	signal dataout_next : std_logic_vector(WIDTH-1 downto 0);
-	signal result       : unsigned(WIDTH-1 downto 0);
+  	signal dataout_reg  : std_logic_vector(WIDTH downto 0);
+	signal dataout_next : std_logic_vector(WIDTH downto 0);
+	signal result       : unsigned(WIDTH downto 0);
 	
 begin
 	
@@ -79,7 +79,7 @@ begin
       	when ST_OP =>
       		if add_op_i = '1' then
       			state_next <= ST_END_OP;
-        		result <= unsigned(data_a_i) + unsigned(data_b_i);
+        		result <= unsigned(("0" & data_a_i)) + unsigned(data_b_i);
       		end if;
       
   		when ST_END_OP =>
