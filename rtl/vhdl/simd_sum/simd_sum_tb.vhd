@@ -32,7 +32,7 @@ architecture stimulus of testbench is
 			data_a_i : in std_logic_vector(WIDTH-1 downto 0);
 			data_b_i : in std_logic_vector(WIDTH-1 downto 0);
 			done_o   : out std_logic;
-			data_c_o : out std_logic_vector(WIDTH-1 downto 0)		
+			data_c_o : out std_logic_vector(WIDTH downto 0)		
 		);
 	end component simd_sum;
 
@@ -43,7 +43,7 @@ architecture stimulus of testbench is
 	signal data_a_i : std_logic_vector(WIDTH-1 downto 0) := (others => '0');
 	signal data_b_i	: std_logic_vector(WIDTH-1 downto 0) := (others => '0');
 	signal done_o	: std_logic := '0';
-	signal data_c_o	: std_logic_vector(WIDTH-1 downto 0) := (others => '0');
+	signal data_c_o	: std_logic_vector(WIDTH downto 0) := (others => '0');
 	    
 begin  
 -- inicio do corpo da arquitetura
@@ -90,6 +90,12 @@ begin
   		data_b_i <= "1010";
   		add_op_i <= '0';
   		wait for 10 us;
+  		add_op_i <= '1';
+  		wait for 20 us;
+  		add_op_i <= '0';
+  		wait for 10 us;
+  		data_a_i <= "1111";
+  		data_b_i <= "1111";
   		add_op_i <= '1';
   		wait for 20 us;
   		add_op_i <= '0';
